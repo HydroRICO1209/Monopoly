@@ -13,7 +13,7 @@ class test2(commands.Cog):
             await ctx.send('1')
             async with self.bot.db_pool.acquire() as connection:
                 arg = await connection.execute('SELECT matchid FROM match WHERE matchstarted = False')
-            ctx.send('2')
+            await ctx.send('2')
             await ctx.send(arg)
         except Exception as e:
             print(e)
