@@ -48,8 +48,8 @@ async def on_command_error(ctx, error):
     else:
         raise error
 
-load_dotenv()
 
+load_dotenv()
 async def main():
     async with bot:
         [await bot.load_extension(f"commando.{file[:-3]}") for file in os.listdir("commando/") if file.endswith(".py")]
