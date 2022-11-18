@@ -5,13 +5,14 @@ import asyncio
 import random
 import os
 import discord
+from os import getenv
+from dotenv import load_dotenv
 
 
 intents = discord.Intents.all()
 intents.members = True
 prefixxx = ['m.', 'M.']
-bot = commands.Bot(command_prefix=prefixxx, case_insensitive=True,
-                   activity=discord.Game(name="m.help"), intents=intents)
+bot = commands.Bot(command_prefix=prefixxx, case_insensitive=True, activity=discord.Game(name="m.help"), intents=intents)
 
 ###########################################################################################################
 ################################################MAIN_CODE##################################################
@@ -47,10 +48,11 @@ async def on_command_error(ctx, error):
     else:
         raise error
 
+load_dotenv()
 
 async def main():
     async with bot:
         [await bot.load_extension(f"commando.{file[:-3]}") for file in os.listdir("commando/") if file.endswith(".py")]
-        await bot.start(os.getenv('TOKEN'))
+        await bot.start(getenv('TOKEN'))
 
 asyncio.run(main())
