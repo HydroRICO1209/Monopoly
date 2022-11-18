@@ -12,11 +12,15 @@ class test2(commands.Cog):
         try:
             await ctx.send('1')
             async with self.bot.db_pool.acquire() as connection:
-                arg = await connection.execute('SELECT matchid FROM match WHERE matchstarted = False')
+                cur = conn.cursor()
+                cur.execute("SELECT part_id, part_name FROM parts ORDER BY part_name")
+                rows = cur.fetchall()
             await ctx.send('2')
-            await ctx.send(arg)
+            await ctx.send(rows)
         except Exception as e:
             print(e)
 
 async def setup(bot):
     await bot.add_cog(test2(bot))
+
+
