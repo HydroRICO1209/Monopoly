@@ -10,7 +10,7 @@ class create(commands.Cog):
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def create(self, ctx):
         try:
-            async with bot.db_pool.acquire() as connection:
+            async with self.bot.db_pool.acquire() as connection:
                 matchcreated = await connection.execute(f"SELECT * FROM match WHERE matchid IN {ctx.channel.id}")
             ctx.send('it worked out lmao')
             username = ctx.author.name
