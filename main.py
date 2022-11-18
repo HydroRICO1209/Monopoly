@@ -1,5 +1,4 @@
 import asyncpg
-from secrets import dburl, token
 from discord.ext import commands
 import discord.ext.commands
 import asyncio
@@ -52,6 +51,6 @@ async def on_command_error(ctx, error):
 async def main():
     async with bot:
         [await bot.load_extension(f"commando.{file[:-3]}") for file in os.listdir("commando/") if file.endswith(".py")]
-        await bot.start(token)
+        await bot.start(os.getenv('TOKEN'))
 
 asyncio.run(main())
