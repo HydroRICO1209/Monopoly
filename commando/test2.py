@@ -10,8 +10,8 @@ class test2(commands.Cog):
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def test2(self, ctx):
         try:
-            ctx.send('1')
-            async with bot.db_pool.acquire() as connection:
+            await ctx.send('1')
+            async with self.bot.db_pool.acquire() as connection:
                 arg = await connection.execute('SELECT * FROM match')
             ctx.send('2')
             await ctx.send(arg)
