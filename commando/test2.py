@@ -1,7 +1,5 @@
 from discord.ext import commands
 import discord
-from PIL import Image
-from urllib.request import urlopen
 
 
 class test2(commands.Cog):
