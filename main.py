@@ -34,19 +34,6 @@ bot.remove_command('help')
 #######################COMMANDS#######################
 ######################################################
 
-
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandOnCooldown):
-        await ctx.send('Command is still on cooldown')
-    elif isinstance(error, commands.CommandNotFound):
-        await ctx.send(f'**{ctx.author.name}**, this command doesnt exist, check your spellling maybe??')
-    elif isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('an argument is missing')
-    else:
-        raise error
-
-
 async def main():
     async with bot:
         [await bot.load_extension(f"commando.{file[:-3]}") for file in os.listdir("commando/") if file.endswith(".py")]
