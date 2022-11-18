@@ -5,8 +5,6 @@ import asyncio
 import random
 import os
 import discord
-from os import getenv
-from dotenv import load_dotenv
 
 
 intents = discord.Intents.all()
@@ -24,7 +22,7 @@ async def setup_hook() -> None:
     # this override's Bot.setup_hook and is triggered before the bot starts.
 
     # creating a database pool
-    bot.db_pool: asyncpg.Pool = await asyncpg.create_pool(dburl)
+    bot.db_pool: asyncpg.Pool = await asyncpg.create_pool(os.getenv('DBURL'))
 
 
 @bot.event
@@ -49,11 +47,9 @@ async def on_command_error(ctx, error):
         raise error
 
 
-
-load_dotenv()
 async def main():
     async with bot:
         [await bot.load_extension(f"commando.{file[:-3]}") for file in os.listdir("commando/") if file.endswith(".py")]
-        await bot.start(getenv('TOKEN'))
+        await bot.start(os.getenv('TOKEN'))
 
 asyncio.run(main())
