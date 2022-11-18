@@ -9,9 +9,14 @@ class test2(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def test2(self, ctx):
-        async with bot.db_pool.acquire() as connection:
-           arg = await connection.execute('SELECT * FROM match')
-        await ctx.send(arg)
+        try:
+            ctx.send('1')
+            async with bot.db_pool.acquire() as connection:
+                arg = await connection.execute('SELECT * FROM match')
+            ctx.send('2')
+            await ctx.send(arg)
+        except Exception as e:
+            print(e)
 
 async def setup(bot):
     await bot.add_cog(test2(bot))
