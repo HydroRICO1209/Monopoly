@@ -12,6 +12,7 @@ class create(commands.Cog):
         try:
             async with bot.db_pool.acquire() as connection:
                 matchcreated = await connection.execute(f"SELECT * FROM match WHERE matchid IN {ctx.channel.id}")
+            ctx.send('it worked out lmao')
             username = ctx.author.name
             userid = ctx.author.id
             channelid = ctx.channel.id
