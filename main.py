@@ -49,6 +49,7 @@ async def on_command_error(ctx, error):
         raise error
 
 
+
 load_dotenv()
 async def main():
     async with bot:
