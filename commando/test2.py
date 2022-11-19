@@ -11,9 +11,8 @@ class test2(commands.Cog):
     async def test2(self, ctx):
         try:
             await ctx.send('1')
-            async with self.bot.db_pool.acquire() as connection:
-                cur = conn.cursor()
-                cur.execute("SELECT part_id, part_name FROM parts ORDER BY part_name")
+            async with connection.cursor() as cursor:
+                await cursor.fetch("SELECT part_id, part_name FROM parts ORDER BY part_name")
                 rows = cur.fetchall()
             await ctx.send('2')
             await ctx.send(rows)
