@@ -11,15 +11,13 @@ class test2(commands.Cog):
     async def test2(self, ctx):
         try:
             await ctx.send('1')
-            async with pgsql.connection.cursor() as cursor:
-                await cursor.fetch("SELECT part_id, part_name FROM parts ORDER BY part_name")
-                rows = cur.fetchall()
+            async with bot.db_pool.acquire() as connection:
+                # creating a connection cursor if needed
+                async with connection.cursor() as cursor:
+                    await cursor.fetch("SELECT part_id, part_name FROM parts ORDER BY part_name")
             await ctx.send('2')
-            await ctx.send(rows)
         except Exception as e:
             print(e)
 
 async def setup(bot):
     await bot.add_cog(test2(bot))
-
-
