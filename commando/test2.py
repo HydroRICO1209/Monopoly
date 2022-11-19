@@ -11,7 +11,7 @@ class test2(commands.Cog):
     async def test2(self, ctx):
         try:
             await ctx.send('1')
-            async with connection.cursor() as cursor:
+            async with pgsql.connection.cursor() as cursor:
                 await cursor.fetch("SELECT part_id, part_name FROM parts ORDER BY part_name")
                 rows = cur.fetchall()
             await ctx.send('2')
