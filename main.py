@@ -20,10 +20,10 @@ bot.remove_command('help')
 ######################################################
 #######################COMMANDS#######################
 ######################################################
-
+utils.setup_logging()
 async def main():
     async with bot:
         [await bot.load_extension(f"commando.{file[:-3]}") for file in os.listdir("commando/") if file.endswith(".py")]
-        await bot.run(os.getenv('TOKEN'))
+        await bot.start(os.getenv('TOKEN'))
 
 asyncio.run(main())
