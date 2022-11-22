@@ -1,5 +1,4 @@
-import asyncio
-import asyncpg
+import asyncio, asyncpg, os
 
 async def db(ctx, arg):
     conn = await asyncpg.connect(os.getenv('DBURL'))
