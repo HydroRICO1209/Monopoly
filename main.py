@@ -24,6 +24,6 @@ bot.remove_command('help')
 async def main():
     async with bot:
         [await bot.load_extension(f"commando.{file[:-3]}") for file in os.listdir("commando/") if file.endswith(".py")]
-        await bot.start(os.getenv('TOKEN'))
+        await bot.run(os.getenv('TOKEN'))
 
 asyncio.run(main())
