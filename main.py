@@ -1,10 +1,6 @@
-import asyncpg
+import discord, asyncio, random, os, asyncpg
 from discord.ext import commands
 import discord.ext.commands
-import asyncio
-import random
-import os
-import discord
 
 
 intents = discord.Intents.all()
