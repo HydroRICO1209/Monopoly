@@ -17,6 +17,7 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 bot.remove_command('help')
 
+discord.utils.setup_logging()
 @bot.event
 async def setup_hook() -> None:
     bot.db_pool: asyncpg.Pool = await asyncpg.create_pool(os.getenv('DBURL'))
@@ -24,7 +25,7 @@ async def setup_hook() -> None:
 ######################################################
 #######################COMMANDS#######################
 ######################################################
-discord.utils.setup_logging()
+
 async def main():
     async with bot:
         [await bot.load_extension(f"commando.{file[:-3]}") for file in os.listdir("commando/") if file.endswith(".py")]
