@@ -13,7 +13,7 @@ class test2(commands.Cog):
         await ctx.send('1')
         
         var = await db(ctx, 'matchplayer')
-        await ctx.send(var[0]["matchplayer"])
+        await ctx.send(var[0])
 
         await ctx.send('2')
 
