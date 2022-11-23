@@ -12,7 +12,7 @@ class test2(commands.Cog):
         await ctx.send('1')
         
         var = await self.bot.db_pool.fetch('SELECT $1 FROM match WHERE matchid = $2', arg, ctx.channel.id)
-        await ctx.send(var[0])
+        await ctx.send(dict(var[0]))
 
         await ctx.send('2')
 
