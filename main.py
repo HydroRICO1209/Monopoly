@@ -20,7 +20,7 @@ bot.remove_command('help')
 discord.utils.setup_logging()
 @bot.event
 async def setup_hook() -> None:
-    bot.db_pool: asyncpg.Pool = await asyncpg.create_pool(os.getenv('DBURL'))
+    bot.db: asyncpg.Pool = await asyncpg.create_pool(os.getenv('DBURL'))
 
 ######################################################
 #######################COMMANDS#######################
