@@ -9,11 +9,10 @@ class test2(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 1, commands.BucketType.user)
-    async def test2(self, ctx):
+    async def test2(self, ctx, arg):
         await ctx.send('1')
         
-        var = await db(ctx, 'matchplayer')
-        await ctx.send(var[0])
+        await self.bot.db.fetch('SELECT $1 FROM match WHERE matchid = $2', arg, ctx.channel.id)
 
         await ctx.send('2')
 
