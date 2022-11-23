@@ -11,9 +11,8 @@ class test2(commands.Cog):
     async def test2(self, ctx):
         await ctx.send('1')
         
-        var = await self.bot.db.fetch('SELECT matchstarted FROM match WHERE matchid = $1', (ctx.channel.id))
-        await ctx.send(var[0]["matchstarted"])
-
+        var = await (self.bot.db.fetch('SELECT matchstarted FROM match WHERE matchid = $1', (ctx.channel.id)))[0]['matchstarted']
+        await ctx.send(var)
         await ctx.send('2')
 
 async def setup(bot):

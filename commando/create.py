@@ -9,30 +9,31 @@ class create(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def create(self, ctx):
-        pool: asyncpg.pool.Pool
         username = ctx.author.name
         userid = ctx.author.id
-        channelid = ctx.channel.id
+        cid = ctx.channel.id
+        value = await self.bot.db.fetch('SELECT * FROM match WHERE matchid = $1', (ctx.channel.id))
+        value = value[0]
 
-        async with self.bot.db_pool.acquire() as connection:
-            matchcreated = await connection.execute(f"SELECT * FROM match WHERE matchid = {ctx.channel.id}")
-        ctx.send('it worked out lmao')
-        
-
-        if f'{channelid}matchcreated' not in db:
-            db[f'{channelid}matchcreated'] = True
-            db[f'{channelid}matchplayers'] = [userid]
-            db[f'{channelid}matchhost'] = userid
-            db[f'{channelid}matchhostname'] = username
-            db[f'{channelid}player1money'] = 1500
-            db[f'{channelid}matchstarted'] = False
+        if value == None:
+            await self.bot.db.execute('''
+INSERT INTO match
+matchid = $1,
+matchplayer = 1,
+matchhost = $2,
+matchhostname = $3,
+matchstarted = False,
+matchproperty = 1
+''',(cid, userid, username))
             await ctx.send(f'Successfully created a room by {username}')
 
             ############################################
+            matchplayer = await self.bot.db.fetch('SELECT matchplayer FROM match WHERE matchid = $1', (ctx.channel.id))
+            matchplayer = matchplayer[0]
 
             n = 0
             long = ''
-            while n < db[f'{channelid}matchplayers']:
+            while n < matchplayer:
                 userid = db[f'{channelid}player{n+1}']
                 long += f'{n+1}) <@{userid}>\n'
                 n += 1
