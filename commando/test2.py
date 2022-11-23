@@ -11,7 +11,7 @@ class test2(commands.Cog):
     async def test2(self, ctx, arg):
         await ctx.send('1')
         
-        var = await self.bot.db_pool.fetch(f'SELECT {arg} FROM match WHERE matchid = str({ctx.channel.id})')
+        var = await self.bot.db_pool.fetch('SELECT matchstarted FROM match WHERE matchid = ?', (ctx.channel.id))
         await ctx.send(var[0])
 
         await ctx.send('2')
