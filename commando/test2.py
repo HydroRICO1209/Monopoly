@@ -8,7 +8,7 @@ class test2(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 1, commands.BucketType.user)
-    async def test2(self, ctx, arg):
+    async def test2(self, ctx):
         await ctx.send('1')
         
         var = await self.bot.db_pool.fetch('SELECT matchstarted FROM match WHERE matchid =?', (ctx.channel.id))
