@@ -12,25 +12,29 @@ class create(commands.Cog):
         username = ctx.author.name
         userid = ctx.author.id
         cid = ctx.channel.id
-        value = await self.bot.db.fetch('SELECT * FROM match WHERE matchid = $1', (ctx.channel.id))
-        value = value[0]
+        created = await (self.bot.db.fetch('SELECT * FROM match WHERE matchid = $1', (ctx.channel.id)))[0]
 
-        if value == None:
+        if created == None:
+            #match table
             await self.bot.db.execute('''
 INSERT INTO match
 matchid = $1,
-matchplayer = 1,
 matchhost = $2,
-matchhostname = $3,
 matchstarted = False,
-matchproperty = 1
+matchhostname = $3,
+matchtotalplayer = 1,
 ''',(cid, userid, username))
-            await ctx.send(f'Successfully created a room by {username}')
+
+            #playerlistdb
+            await self.bot.db.execute('''
+INSERT INTO 
+''')
+            await ctx.send(f'Successfully created a room by **{username}**')
 
             ############################################
-            matchplayer = await self.bot.db.fetch('SELECT matchplayer FROM match WHERE matchid = $1', (ctx.channel.id))
-            matchplayer = matchplayer[0]
-
+            matchplayer = await (self.bot.db.fetch('SELECT matchplayer FROM match WHERE matchid = $1', (ctx.channel.id)))[0]['matchplayer']
+            hostname = await (self.bot.db.fetch('SELECT matchhostname FROM match WHERE matchid = $1', (ctx.channel.id)))[0]['matchhostname']
+            
             n = 0
             long = ''
             while n < matchplayer:
@@ -52,7 +56,7 @@ Game created by **{db[f'{channelid}matchhostname']}**
 
             await ctx.message.delete()
         else:
-            await ctx.send('Game has already been created')
+            await ctx.send(f'**{username}**, Game has already been created')
 
 
 async def setup(bot):
