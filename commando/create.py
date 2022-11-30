@@ -25,10 +25,32 @@ matchhostname = $3,
 matchtotalplayer = 1,
 ''',(cid, userid, username))
 
-            #playerlistdb
+            #player table
             await self.bot.db.execute('''
-INSERT INTO 
-''')
+INSERT INTO player
+playerid = $1,
+playermoney = 1500,
+player_bankrupted = False,
+''',(userid))
+
+            #playerlist table
+            await self.bot.db.execute('''
+INSERT INTO playerlist
+matchid = $1,
+player1id = $2,
+player2id = 1,
+player3id = 1,
+player4id = 1,
+''',(cid, userid))
+
+            #property table
+            await self.bot.db.execute('''
+INSERT INTO property
+matchid = $1,
+pro1 = 0,
+pro2 = 0,
+pro3 = 0,
+''',(cid))
             await ctx.send(f'Successfully created a room by **{username}**')
 
             ############################################
