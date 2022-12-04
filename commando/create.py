@@ -23,7 +23,7 @@ VALUES ($1, $2, False, $3, 1)
 
             #player table
             await self.bot.db.execute('''
-INSERT INTO player (playerid, playermoney, player_bankrupted)
+INSERT INTO player (playerid, playermoney, playerbankrupted)
 VALUES ($1, 1500, False)
 ''',(userid))
 
