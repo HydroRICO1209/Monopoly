@@ -17,39 +17,26 @@ class create(commands.Cog):
         if created == []:
             #match table
             await self.bot.db.execute('''
-INSERT INTO match VALUES
-matchid = $1,
-matchhost = $2,
-matchstarted = False,
-matchhostname = $3,
-matchtotalplayer = 1,
+INSERT INTO match (matchid, matchhost, matchstarted, matchhostname, matchtotalplayer)
+VALUES ($1, $2, False, $3, 1)
 ''',(cid, userid, username))
 
             #player table
             await self.bot.db.execute('''
-INSERT INTO player VALUES
-playerid = $1,
-playermoney = 1500,
-player_bankrupted = False,
+INSERT INTO player (playerid, playermoney, player_bankrupted)
+VALUES ($1, 1500, False)
 ''',(userid))
 
             #playerlist table
             await self.bot.db.execute('''
-INSERT INTO playerlist VALUES
-matchid = $1,
-player1id = $2,
-player2id = 1,
-player3id = 1,
-player4id = 1,
+INSERT INTO playerlist (matchid, playerid, player2id, player3id, player4id)
+VALUES($1, $2, 1, 1, 1)
 ''',(cid, userid))
 
             #property table
             await self.bot.db.execute('''
-INSERT INTO property VALUES
-matchid = $1,
-pro1 = 0,
-pro2 = 0,
-pro3 = 0,
+INSERT INTO property (matchid, pro1, pro2, pro3)
+VALUES ($1, 0, 0, 0)
 ''',(cid))
 
             await ctx.send(f'Successfully created a room by **{username}**')
