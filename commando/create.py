@@ -17,7 +17,7 @@ class create(commands.Cog):
         if created == []:
             #match table
             await self.bot.db.execute('''
-INSERT INTO match
+INSERT INTO match VALUES
 matchid = $1,
 matchhost = $2,
 matchstarted = False,
@@ -27,7 +27,7 @@ matchtotalplayer = 1,
 
             #player table
             await self.bot.db.execute('''
-INSERT INTO player
+INSERT INTO player VALUES
 playerid = $1,
 playermoney = 1500,
 player_bankrupted = False,
@@ -35,7 +35,7 @@ player_bankrupted = False,
 
             #playerlist table
             await self.bot.db.execute('''
-INSERT INTO playerlist
+INSERT INTO playerlist VALUES
 matchid = $1,
 player1id = $2,
 player2id = 1,
@@ -45,7 +45,7 @@ player4id = 1,
 
             #property table
             await self.bot.db.execute('''
-INSERT INTO property
+INSERT INTO property VALUES
 matchid = $1,
 pro1 = 0,
 pro2 = 0,
