@@ -13,8 +13,8 @@ class create(commands.Cog):
         userid = ctx.author.id
         cid = ctx.channel.id
         created = await self.bot.db.fetch('SELECT * FROM match WHERE matchid = $1', (ctx.channel.id))
-        print(created)
-        if created == None:
+        
+        if created == []:
             #match table
             await self.bot.db.execute('''
 INSERT INTO match
