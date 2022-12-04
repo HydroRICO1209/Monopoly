@@ -19,7 +19,7 @@ class create(commands.Cog):
             await self.bot.db.execute('''
 INSERT INTO match (matchid, matchhost, matchstarted, matchhostname, matchtotalplayer)
 VALUES ($1, $2, False, $3, 1)
-''',(cid, userid, username))
+''',cid, userid, username)
 
             #player table
             await self.bot.db.execute('''
