@@ -29,7 +29,7 @@ VALUES ($1, 1500, False)
 
             #playerlist table
             await self.bot.db.execute('''
-INSERT INTO playerlist (matchid, playerid, player2id, player3id, player4id)
+INSERT INTO playerlist (matchid, player1id, player2id, player3id, player4id)
 VALUES($1, $2, 1, 1, 1)
 ''',(cid, userid))
 
