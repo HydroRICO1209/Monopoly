@@ -13,7 +13,7 @@ class stop(commands.Cog):
             userid = ctx.author.id
             username = ctx.author.name
             channelid = ctx.channel.id
-            matchhost = (await self.bot.db.fetch())[0]["matchhost"]
+            matchhost = (await self.bot.db.fetch('SELECT matchhost FROM match WHERE matchid = $1',(channelid)))[0]["matchhost"]
 
             if matchhost == userid:
                 #match table
