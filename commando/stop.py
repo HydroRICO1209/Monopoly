@@ -13,11 +13,33 @@ class stop(commands.Cog):
             userid = ctx.author.id
             username = ctx.author.name
             channelid = ctx.channel.id
+            matchhost = (await self.bot.db.fetch())[0]["matchhost"]
 
-            if db[f'{channelid}matchhost'] == userid:
-                tobedeleted = db.prefix(channelid)
-                for stuff in tobedeleted:
-                    del db[stuff]
+            if matchhost == userid:
+                #match table
+                await self.bot.db.execute('''
+DELETE FROM match
+WHERE matchid = $1
+''',(channelid))
+
+                #playertable
+                await self.bot.db.execute('''
+DELETE FROM player
+WHERE matchid = $1
+''',(channelid))
+
+                #playerlist
+                await self.bot.db.execute('''
+DELETE FROM playerlist
+WHERE matchid = $1
+''',(channelid))
+
+                #property
+                await self.bot.db.execute('''
+DELETE FROM property
+WHERE matchid = $1
+''',(channelid))
+
                 await ctx.send(f'Game stopped by {username}')
             else:
                 await ctx.send(f'{username}, you are not the host')
