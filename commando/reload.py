@@ -5,8 +5,7 @@ intents = discord.Intents.default()
 intents.members = True
 
 prefixxx = ['m.', 'M.']
-bot = commands.Bot(command_prefix=prefixxx, case_insensitive=True,
-                   activity=discord.Game(name="rpm start"), intents=intents)
+bot = commands.Bot(command_prefix=prefixxx, case_insensitive=True, activity=discord.Game(name="rpm start"), intents=intents)
 
 
 class Reload(commands.Cog):
