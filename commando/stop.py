@@ -16,27 +16,9 @@ class stop(commands.Cog):
             matchhost = (await self.bot.db.fetch('SELECT matchhost FROM match WHERE matchid = $1',(channelid)))[0]["matchhost"]
 
             if matchhost == userid:
-                #match table
+                #all table
                 await self.bot.db.execute('''
-DELETE FROM match
-WHERE matchid = $1
-''',channelid)
-
-                #playertable
-                await self.bot.db.execute('''
-DELETE FROM player
-WHERE matchid = $1
-''',channelid)
-
-                #playerlist
-                await self.bot.db.execute('''
-DELETE FROM playerlist
-WHERE matchid = $1
-''',channelid)
-
-                #property
-                await self.bot.db.execute('''
-DELETE FROM property
+DELETE FROM match, player, playerlist, property
 WHERE matchid = $1
 ''',channelid)
 
