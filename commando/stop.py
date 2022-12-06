@@ -20,25 +20,25 @@ class stop(commands.Cog):
                 await self.bot.db.execute('''
 DELETE FROM match
 WHERE matchid = $1
-''',(channelid))
+''',channelid)
 
                 #playertable
                 await self.bot.db.execute('''
 DELETE FROM player
 WHERE matchid = $1
-''',(channelid))
+''',channelid)
 
                 #playerlist
                 await self.bot.db.execute('''
 DELETE FROM playerlist
 WHERE matchid = $1
-''',(channelid))
+''',channelid)
 
                 #property
                 await self.bot.db.execute('''
 DELETE FROM property
 WHERE matchid = $1
-''',(channelid))
+''',channelid)
 
                 await ctx.send(f'Game stopped by {username}')
             else:

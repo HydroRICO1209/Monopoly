@@ -25,19 +25,19 @@ VALUES ($1, $2, False, $3, 1)
             await self.bot.db.execute('''
 INSERT INTO player (playerid, playermoney, playerbankrupted)
 VALUES ($1, 1500, False)
-''',(userid))
+''',userid)
 
             #playerlist table
             await self.bot.db.execute('''
 INSERT INTO playerlist (matchid, player1id, player2id, player3id, player4id)
 VALUES ($1, $2, 1, 1, 1)
-''',(cid, userid))
+''',cid, userid)
 
             #property table
             await self.bot.db.execute('''
 INSERT INTO property (matchid, pro1, pro2, pro3)
 VALUES ($1, 0, 0, 0)
-''',(cid))
+''',cid)
 
             await ctx.send(f'Successfully created a room by **{username}**')
 
