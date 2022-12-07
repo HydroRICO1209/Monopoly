@@ -17,7 +17,7 @@ class create(commands.Cog):
         if created == []:
             #match table
             await self.bot.db.execute('''
-INSERT INTO match (matchid, matchhost, matchstarted, matchhostname, matchtotalplayer)
+INSERT INTO match (matchid, matchhostid, matchstarted, matchhostname, matchtotalplayer)
 VALUES ($1, $2, False, $3, 1)
 ''',cid, userid, username)
 
