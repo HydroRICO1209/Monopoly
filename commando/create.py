@@ -42,8 +42,8 @@ VALUES ($1, 0, 0, 0)
             await ctx.send(f'Successfully created a room by **{username}**')
 
             ############################################
-            matchplayer = await (self.bot.db.fetch('SELECT matchplayer FROM match WHERE matchid = $1', (ctx.channel.id)))[0]['matchplayer']
-            hostname = await (self.bot.db.fetch('SELECT matchhostname FROM match WHERE matchid = $1', (ctx.channel.id)))[0]['matchhostname']
+            matchplayer = (await self.bot.db.fetch('SELECT matchplayer FROM match WHERE matchid = $1', (ctx.channel.id)))[0]['matchplayer']
+            hostname = (await self.bot.db.fetch('SELECT matchhostname FROM match WHERE matchid = $1', (ctx.channel.id)))[0]['matchhostname']
             
             n = 0
             long = ''
