@@ -42,14 +42,15 @@ VALUES ($1, 0, 0, 0)
             await ctx.send(f'Successfully created a room by **{username}**')
 
             ############################################
-            matchplayer = (await self.bot.db.fetch('SELECT matchplayer FROM match WHERE matchid = $1', (ctx.channel.id)))[0]['matchplayer']
-            hostname = (await self.bot.db.fetch('SELECT matchhostname FROM match WHERE matchid = $1', (ctx.channel.id)))[0]['matchhostname']
+            matchtotalplayer = (await self.bot.db.fetch('SELECT matchtotalplayer FROM match WHERE matchid = $1', ctx.channel.id))[0]['matchtotalplayer']
+            hostname = (await self.bot.db.fetch('SELECT matchhostname FROM match WHERE matchid = $1', ctx.channel.id))[0]['matchhostname']
             
-            n = 0
+            n = 1
             long = ''
-            while n < matchplayer:
-                userid = db[f'{channelid}player{n+1}']
-                long += f'{n+1}) <@{userid}>\n'
+            while n <= matchtotalplayer:
+                dbuserid = f'player{n}id'
+                userid = (await self.bot.db.fetch('SELECT $1 FROM match WHERE matchid = $2',dbuserid, ctx.channel.id))[0][dbuserid]
+                long += f'{n}) <@{userid}>\n'
                 n += 1
 
             embed = discord.Embed(
