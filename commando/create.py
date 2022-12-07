@@ -23,9 +23,9 @@ VALUES ($1, $2, False, $3, 1)
 
             #player table
             await self.bot.db.execute('''
-INSERT INTO player (playerid, playermoney, playerbankrupted)
-VALUES ($1, 1500, False)
-''',userid)
+INSERT INTO player (matchid, playerid, playermoney, playerbankrupted)
+VALUES ($1, $2, 1500, False)
+''',cid, userid)
 
             #playerlist table
             await self.bot.db.execute('''
