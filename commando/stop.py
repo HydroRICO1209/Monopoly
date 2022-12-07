@@ -18,7 +18,25 @@ class stop(commands.Cog):
             if matchhost == userid:
                 #all table
                 await self.bot.db.execute('''
-DELETE FROM match, player, playerlist, property
+DELETE FROM match
+WHERE matchid = $1
+''',channelid)
+
+                #player table
+                await self.bot.db.execute('''
+DELETE FROM player
+WHERE matchid = $1
+''',channelid)
+
+                #playerlist table
+                await self.bot.db.execute('''
+DELETE FROM playerlist
+WHERE matchid = $1
+''',channelid)
+
+                #property table
+                await self.bot.db.execute('''
+DELETE FROM property
 WHERE matchid = $1
 ''',channelid)
 
@@ -28,7 +46,6 @@ WHERE matchid = $1
 
         except Exception as e:
             print(e)
-
 
 async def setup(bot):
     await bot.add_cog(stop(bot))
