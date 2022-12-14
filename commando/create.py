@@ -45,6 +45,9 @@ VALUES ($1, 0, 0, 0)
             matchtotalplayer = (await self.bot.db.fetch('SELECT matchtotalplayer FROM match WHERE matchid = $1', ctx.channel.id))[0]['matchtotalplayer']
             hostname = (await self.bot.db.fetch('SELECT matchhostname FROM match WHERE matchid = $1', ctx.channel.id))[0]['matchhostname']
             
+            await ctx.send(f'matchtotalplayer: {matchtotalplayer}')
+            await ctx.send(f'hostname: {hostname}')
+
             n = 1
             long = ''
             while n <= matchtotalplayer:
