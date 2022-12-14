@@ -20,7 +20,7 @@ class join(commands.Cog):
             matchstarted = (await self.bot.db.fetch('SELECT matchstarted FROM match WHERE matchid = $1', cid))[0]['matchstarted']
 
             #game started/ joined
-            if cid == player1id or player2id or player3id or player4id:
+            if userid in (player1id, player2id, player3id, player4id):
                 await ctx.send(f'{username}, you are already in there')
             elif matchstarted == True:
                 await ctx.send(f'Too late {username}, game started')
