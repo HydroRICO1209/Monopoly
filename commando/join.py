@@ -12,20 +12,45 @@ class join(commands.Cog):
         try:
             userid = ctx.author.id
             username = ctx.author.name
-            channelid = ctx.channel.id
-            playerlist = db[f'{id}matchplayers']
+            cid = ctx.channel.id
+            player1id = (await self.bot.db.fetch('SELECT player1id FROM playerlist WHERE matchid = $1', cid))[0]['player1id']
+            player2id = (await self.bot.db.fetch('SELECT player2id FROM playerlist WHERE matchid = $1', cid))[0]['player2id']
+            player3id = (await self.bot.db.fetch('SELECT player3id FROM playerlist WHERE matchid = $1', cid))[0]['player3id']
+            player4id = (await self.bot.db.fetch('SELECT player4id FROM playerlist WHERE matchid = $1', cid))[0]['player4id']
+            matchstarted = (await self.bot.db.fetch('SELECT matchstarted FROM match WHERE matchid = $1', cid))[0]['matchstarted']
 
-            await ctx.send('roger that')
-            if len(playerlist) < 7 and db[f'{channelid}matchstarted'] == False and ctx.author.id not in playerlist:
-                db[f'{channelid}matchplayers'].append(userid)
-
-                await ctx.send(f'{username}joined')
-            elif len(playerlist) > 8:
-                await ctx.send(f'{username}, the game is full')
-            elif db[f'{channelid}matchstarted'] == True:
-                await ctx.send(f'Too late {username}, game started')
-            elif ctx.author.id in playerlist:
+            #game started/ joined
+            if cid == player1id or player2id or player3id or player4id:
                 await ctx.send(f'{username}, you are already in there')
+            elif matchstarted == True:
+                await ctx.send(f'Too late {username}, game started')
+
+            #find empty seat
+            elif player2id == 1:
+                await self.bot.db.execute('''
+UPDATE playerlist
+SET player2id = $1,
+WHERE matchid = $2
+''', userid, cid)
+                await ctx.send(f'{username}joined')
+            elif player3id == 1:
+                await self.bot.db.execute('''
+UPDATE playerlist
+SET player3id = $1,
+WHERE matchid = $2
+''', userid, cid)
+                await ctx.send(f'{username}joined')
+            elif player4id == 1:
+                await self.bot.db.execute('''
+UPDATE playerlist
+SET player4id = $1,
+WHERE matchid = $2
+''', userid, cid)
+                await ctx.send(f'{username}joined')
+            else:
+                await ctx.send(f'{username}, the game is full')
+            
+            
         except Exception as e:
             print(e)
 
