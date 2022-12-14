@@ -18,7 +18,10 @@ class join(commands.Cog):
             player3id = (await self.bot.db.fetch('SELECT player3id FROM playerlist WHERE matchid = $1', cid))[0]['player3id']
             player4id = (await self.bot.db.fetch('SELECT player4id FROM playerlist WHERE matchid = $1', cid))[0]['player4id']
             matchstarted = (await self.bot.db.fetch('SELECT matchstarted FROM match WHERE matchid = $1', cid))[0]['matchstarted']
-
+            
+            await ctx.send(type(player2id))
+            await ctx.send(player2id)
+            
             #game started/ joined
             if userid in (player1id, player2id, player3id, player4id):
                 await ctx.send(f'{username}, you are already in there')
