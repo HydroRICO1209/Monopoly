@@ -42,17 +42,22 @@ VALUES ($1, 0, 0, 0)
             await ctx.send(f'Successfully created a room by **{username}**')
 
             ############################################
-            matchtotalplayer = (await self.bot.db.fetch('SELECT matchtotalplayer FROM match WHERE matchid = $1', ctx.channel.id))[0]['matchtotalplayer']
-            hostname = (await self.bot.db.fetch('SELECT matchhostname FROM match WHERE matchid = $1', ctx.channel.id))[0]['matchhostname']
-
-            n = 1
+            matchtotalplayer = (await self.bot.db.fetch('SELECT matchtotalplayer FROM match WHERE matchid = $1', cid))[0]['matchtotalplayer']
+            hostname = (await self.bot.db.fetch('SELECT matchhostname FROM match WHERE matchid = $1', cid))[0]['matchhostname']
+            player1id = (await self.bot.db.fetch('SELECT player1id FROM playerlist WHERE matchid = $1', cid))[0]['player1id']
+            player2id = (await self.bot.db.fetch('SELECT player2id FROM playerlist WHERE matchid = $1', cid))[0]['player2id']
+            player3id = (await self.bot.db.fetch('SELECT player3id FROM playerlist WHERE matchid = $1', cid))[0]['player3id']
+            player4id = (await self.bot.db.fetch('SELECT player4id FROM playerlist WHERE matchid = $1', cid))[0]['player4id']
             long = ''
-            while n <= matchtotalplayer:
-                dbuserid = f'player{n}id'
-                await ctx.send(dbuserid)
-                userid = (await self.bot.db.fetch('SELECT $1 FROM playerlist WHERE matchid = $2',dbuserid, ctx.channel.id))[0][dbuserid]
-                long += f'{n}) <@{userid}>\n'
-                n += 1
+
+            if matchtotalplayer == 1:
+                long += f'1) <@{player1id}>\n'
+                if matchtotalplayer == 2:
+                    long += f'2) <@{player2id}>\n'
+                    if matchtotalplayer == 2:
+                        long += f'3) <@{player3id}>\n'
+                        if matchtotalplayer == 2:
+                            long += f'4) <@{player4id}>\n'
 
             embed = discord.Embed(
                 description=f'''
