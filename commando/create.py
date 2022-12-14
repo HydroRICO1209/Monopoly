@@ -56,7 +56,7 @@ VALUES ($1, 0, 0, 0)
 
             embed = discord.Embed(
                 description=f'''
-Game created by **{db[f'{channelid}matchhostname']}**
+Game created by **{hostname}**
 {long}
 ''',
                 color=discord.Color.blue())
@@ -66,7 +66,6 @@ Game created by **{db[f'{channelid}matchhostname']}**
             embed.set_footer(text='Go grab some drinks')
             await ctx.send(embed=embed)
 
-            await ctx.message.delete()
         else:
             await ctx.send(f'**{username}**, Game has already been created')
 
