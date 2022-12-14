@@ -50,7 +50,7 @@ VALUES ($1, 0, 0, 0)
             while n <= matchtotalplayer:
                 dbuserid = f'player{n}id'
                 await ctx.send(dbuserid)
-                userid = (await self.bot.db.fetch('SELECT $1 FROM match WHERE matchid = $2',dbuserid, ctx.channel.id))[0][dbuserid]
+                userid = (await self.bot.db.fetch('SELECT $1 FROM playerlist WHERE matchid = $2',dbuserid, ctx.channel.id))[0][dbuserid]
                 long += f'{n}) <@{userid}>\n'
                 n += 1
 
